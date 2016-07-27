@@ -1,0 +1,19 @@
+{
+    "name": "eskrano/formbuilder",
+    "description": "Just for fun",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Eskrano",
+            "email": "alex.priadko2014@yandex.ru"
+        }
+    ],
+    "minimum-stability": "beta",
+    "require": {},
+    "autoload" : {
+        "psr-4" : {
+            "Eskrano\\FormBuilder\\"    : "src/"
+        }
+    }
+}
