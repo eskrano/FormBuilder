@@ -9,7 +9,7 @@
             "email": "alex.priadko2014@yandex.ru"
         }
     ],
-    "minimum-stability": "beta",
+    "minimum-stability": "stable",
     "require": {},
     "autoload" : {
         "psr-4" : {
