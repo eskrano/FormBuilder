@@ -25,11 +25,11 @@ $form = (new Builder(
         return $field_1 . $field_2;
     })->separator()->select([
 
-    ],[
+    ],json_encode([
         'select_1',
         'select_2',
         'select_3'
-    ]); ?>
+    ])); ?>
 
 <html>
 <head>

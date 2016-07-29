@@ -14,6 +14,9 @@
     "autoload" : {
         "psr-4" : {
             "Eskrano\\FormBuilder\\"    : "src/"
-        }
+        },
+        "files" : [
+            "src/helpers.php"
+        ]
     }
 }

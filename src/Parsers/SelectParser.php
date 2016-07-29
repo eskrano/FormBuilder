@@ -17,6 +17,11 @@ class SelectParser
         if (is_array($data)) {
             return $this->arrayParser($data);
         }
+
+        if (is_json($data)) {
+            return $this->jsonParser($data);
+        }
+
         return $this->arrayParser($data);
     }
 
@@ -32,5 +37,10 @@ class SelectParser
         }
 
         return $str;
+    }
+
+    private function jsonParser($data)
+    {
+        return $this->arrayParser(json_decode($data,true));
     }
 }

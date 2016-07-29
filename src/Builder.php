@@ -6,6 +6,9 @@ use Eskrano\FormBuilder\Parsers\SelectParser;
 
 class Builder
 {
+    /**
+     * @var PresenterInterface
+     */
     public $presenter;
 
     private $html;
