@@ -29,7 +29,9 @@ $form = (new Builder(
         'select_1',
         'select_2',
         'select_3'
-    ])); ?>
+    ]))->checkbox('Checkbox',[
+        'value' =>  111
+    ]); ?>
 
 <html>
 <head>

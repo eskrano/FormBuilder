@@ -27,9 +27,12 @@ class BootstrapThree implements PresenterInterface
         return $this->textFieldClass();
     }
 
-    public function checkBoxClass()
+    public function checkBoxClass($options,$label)
     {
-        return '';
+        return sprintf(
+            "<div class = 'checkbox'><label><input type = 'checkbox' %s>%s</label></div>",
+            $options,$label
+        );
     }
 
     public function multiSelectClass()
@@ -47,24 +50,24 @@ class BootstrapThree implements PresenterInterface
 
     }
 
-    private function colBase($type,$col,callable $callback)
+    private function colBase($type, $col, callable $callback)
     {
-        return sprintf('<div class = "col-%s-%s">%s</div>',$type,$col,$callback());
+        return sprintf('<div class = "col-%s-%s">%s</div>', $type, $col, $callback());
     }
 
-    public function colSm($col,callable $callback)
+    public function colSm($col, callable $callback)
     {
-        return $this->colBase('sm',$col,$callback);
+        return $this->colBase('sm', $col, $callback);
     }
 
-    public function colMd($col,callable $callback)
+    public function colMd($col, callable $callback)
     {
-        return $this->colBase('md',$col,$callback);
+        return $this->colBase('md', $col, $callback);
     }
 
-    public function colXs($col,callable $callback)
+    public function colXs($col, callable $callback)
     {
-        return $this->colBase('xs',$col,$callback);
+        return $this->colBase('xs', $col, $callback);
     }
 
     public function multiCol(array $cols, callable $callback)
@@ -75,10 +78,10 @@ class BootstrapThree implements PresenterInterface
         $t = '';
 
         foreach ($cols as $k => $v) {
-            $t .= sprintf($template,$k,$v);
+            $t .= sprintf($template, $k, $v);
         }
 
-        return sprintf($layout,$t,$callback());
+        return sprintf($layout, $t, $callback());
 
     }
 

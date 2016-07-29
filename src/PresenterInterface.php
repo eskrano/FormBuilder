@@ -36,9 +36,10 @@ interface PresenterInterface
     public function separator();
 
     /**
+     * @param string $options
      * @return string
      */
-    public function checkBoxClass();
+    public function checkBoxClass($options,$label);
 
     /**
      * @return string

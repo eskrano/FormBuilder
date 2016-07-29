@@ -37,15 +37,45 @@ class Builder
         $this->presenter = new $presenter;
     }
 
+
+    public function checkbox($label, array $options)
+    {
+        $this->html .= sprintf(
+            '%s',
+            $this->presenter->checkBoxClass(
+                $this->parseOptions($options),
+                $label
+            ));
+
+        return $this;
+    }
+
+    /**
+     * Parse options
+     * @param array $options
+     * @return string
+     */
+    private function parseOptions(array $options = [])
+    {
+        $html = '';
+
+        foreach ($options as $key => $value) {
+            $html = sprintf("%s = '%s'",
+                $key, $value);
+        }
+
+        return $html;
+    }
+
     /**
      * @deprecated
      * @param array $options
      * @param string $type
      * @return Builder
      */
-    public function text(array $options = [],$type = 'text')
+    public function text(array $options = [], $type = 'text')
     {
-        return $this->input($options,$type);
+        return $this->input($options, $type);
     }
 
     /**
@@ -54,7 +84,7 @@ class Builder
      * @param string $type
      * @return $this
      */
-    public function input(array $options = [],$type = 'text')
+    public function input(array $options = [], $type = 'text')
     {
         $this->html .= sprintf(
             "<div class = '%s'><input type = '%s' class = '%s' %s></div>",
@@ -73,7 +103,7 @@ class Builder
      * @param null $text
      * @return $this
      */
-    public function textArea(array $options = [],$text = null)
+    public function textArea(array $options = [], $text = null)
     {
         $this->html .= sprintf(
             "<div class = '%s'><textarea class = '%s' %s>%s</textarea></div>",
@@ -92,7 +122,7 @@ class Builder
      * @param $values
      * @return $this
      */
-    public function select(array $options = [],$values)
+    public function select(array $options = [], $values)
     {
         $this->html .= sprintf(
             "<div class = '%s'><select class = '%s' %s>%s</select></div>",
@@ -100,23 +130,6 @@ class Builder
             $this->presenter->selectFieldClass(),
             $this->parseOptions($options),
             (new SelectParser($values))->parse()
-        );
-
-        return $this;
-    }
-
-    /**
-     * Create button
-     * @param array $options
-     * @return $this
-     */
-    public function button(array $options = [])
-    {
-        $this->html .= sprintf(
-            "<div class = '%s'><input type ='submit' class = '%s' %s></div>",
-            $this->presenter->inputWrapper(),
-            $this->presenter->buttonSubmitClass(),
-            $this->parseOptions($options)
         );
 
         return $this;
@@ -144,19 +157,11 @@ class Builder
     }
 
     /**
-     * @return static
-     */
-    public function copy()
-    {
-        return new static($this->presenter);
-    }
-
-    /**
      * @param $classname string
      * @param callable $callback
      * @return $this
      */
-    public function block($classname,callable $callback)
+    public function block($classname, callable $callback)
     {
         $this->html .= sprintf(
             "<div class = '%s'>%s</div>",
@@ -166,6 +171,13 @@ class Builder
         return $this;
     }
 
+    /**
+     * @return static
+     */
+    public function copy()
+    {
+        return new static($this->presenter);
+    }
 
     /**
      * @param array $options
@@ -198,6 +210,23 @@ class Builder
     }
 
     /**
+     * Create button
+     * @param array $options
+     * @return $this
+     */
+    public function button(array $options = [])
+    {
+        $this->html .= sprintf(
+            "<div class = '%s'><input type ='submit' class = '%s' %s></div>",
+            $this->presenter->inputWrapper(),
+            $this->presenter->buttonSubmitClass(),
+            $this->parseOptions($options)
+        );
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     private function renderFull()
@@ -208,7 +237,7 @@ class Builder
             $this->form['method']
         );
 
-        $contents .= sprintf("%s",$this->html);
+        $contents .= sprintf("%s", $this->html);
         $contents .= '</form>';
 
         return $contents;
@@ -234,23 +263,6 @@ class Builder
         $this->form['method'] = $method;
 
         return $this;
-    }
-
-    /**
-     * Parse options
-     * @param array $options
-     * @return string
-     */
-    private function parseOptions(array $options = [])
-    {
-        $html = '';
-
-        foreach ($options as $key => $value) {
-            $html = sprintf("%s = '%s'",
-                $key, $value);
-        }
-
-        return $html;
     }
 
 }
