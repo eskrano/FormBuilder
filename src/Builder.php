@@ -11,22 +11,49 @@ class Builder
      */
     public $presenter;
 
+    /**
+     * @var string
+     */
     private $html;
 
+    /**
+     * Form settings
+     * @var array
+     */
     private $form = [];
 
+    /**
+     * Submit options
+     * @var array
+     */
     private $submit_options = [];
 
+    /**
+     * Builder constructor.
+     * @param PresenterInterface $presenter
+     */
     public function __construct(PresenterInterface $presenter)
     {
         $this->presenter = new $presenter;
     }
 
+    /**
+     * @deprecated
+     * @param array $options
+     * @param string $type
+     * @return Builder
+     */
     public function text(array $options = [],$type = 'text')
     {
         return $this->input($options,$type);
     }
 
+    /**
+     * Create input field
+     * @param array $options
+     * @param string $type
+     * @return $this
+     */
     public function input(array $options = [],$type = 'text')
     {
         $this->html .= sprintf(
@@ -39,7 +66,13 @@ class Builder
 
         return $this;
     }
-    
+
+    /**
+     * Create textarea field
+     * @param array $options
+     * @param null $text
+     * @return $this
+     */
     public function textArea(array $options = [],$text = null)
     {
         $this->html .= sprintf(
@@ -53,6 +86,12 @@ class Builder
         return $this;
     }
 
+    /**
+     * Create select field
+     * @param array $options
+     * @param $values
+     * @return $this
+     */
     public function select(array $options = [],$values)
     {
         $this->html .= sprintf(
@@ -66,6 +105,11 @@ class Builder
         return $this;
     }
 
+    /**
+     * Create button
+     * @param array $options
+     * @return $this
+     */
     public function button(array $options = [])
     {
         $this->html .= sprintf(
@@ -78,7 +122,11 @@ class Builder
         return $this;
     }
 
-
+    /**
+     * Append custom html to html container
+     * @param $contents string
+     * @return $this
+     */
     public function customHtml($contents)
     {
         $this->html .= $contents;
@@ -86,17 +134,28 @@ class Builder
         return $this;
     }
 
+    /**
+     * Returns html container
+     * @return string
+     */
     public function getHtml()
     {
         return $this->html;
     }
 
+    /**
+     * @return static
+     */
     public function copy()
     {
         return new static($this->presenter);
     }
 
-
+    /**
+     * @param $classname string
+     * @param callable $callback
+     * @return $this
+     */
     public function block($classname,callable $callback)
     {
         $this->html .= sprintf(
@@ -108,7 +167,10 @@ class Builder
     }
 
 
-
+    /**
+     * @param array $options
+     * @return $this
+     */
     public function setSubmitOptions(array $options = [])
     {
         $this->submit_options = $options;
@@ -116,6 +178,9 @@ class Builder
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function separator()
     {
         $this->html .= $this->presenter->separator();
@@ -123,12 +188,18 @@ class Builder
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function render()
     {
         $this->button($this->submit_options);
         return $this->renderFull();
     }
 
+    /**
+     * @return string
+     */
     private function renderFull()
     {
         $contents = sprintf(
@@ -143,6 +214,10 @@ class Builder
         return $contents;
     }
 
+    /**
+     * @param $action string
+     * @return $this
+     */
     public function setAction($action)
     {
         $this->form['action'] = $action;
@@ -150,6 +225,10 @@ class Builder
         return $this;
     }
 
+    /**
+     * @param $method string
+     * @return $this
+     */
     public function setMethod($method)
     {
         $this->form['method'] = $method;
@@ -157,6 +236,11 @@ class Builder
         return $this;
     }
 
+    /**
+     * Parse options
+     * @param array $options
+     * @return string
+     */
     private function parseOptions(array $options = [])
     {
         $html = '';
