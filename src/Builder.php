@@ -38,7 +38,7 @@ class Builder
     }
 
 
-    public function checkbox($label, array $options)
+    public function checkbox($label, array $options = [])
     {
         $this->html .= sprintf(
             '%s',
@@ -46,6 +46,19 @@ class Builder
                 $this->parseOptions($options),
                 $label
             ));
+
+        return $this;
+    }
+
+
+    public function multiCheckbox(array $data)
+    {
+        foreach ($data as $row) {
+            $this->checkbox(
+                $row['label'],
+                $row['options']
+            );
+        }
 
         return $this;
     }

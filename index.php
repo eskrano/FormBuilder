@@ -1,4 +1,7 @@
 <?php
+
+$start  = microtime(true);
+
 require __DIR__ . '/vendor/autoload.php';
 
 use Eskrano\FormBuilder\Builder;
@@ -31,6 +34,19 @@ $form = (new Builder(
         'select_3'
     ]))->checkbox('Checkbox',[
         'value' =>  111
+    ])->multiCheckbox([
+        [
+            'label' =>  'first',
+            'options'   =>  [
+                'value' =>  'first'
+            ]
+        ],
+        [
+            'label' =>  'second',
+            'options'   =>  [
+                'value' =>  'second'
+            ]
+        ]
     ]); ?>
 
 <html>
@@ -47,6 +63,9 @@ $form = (new Builder(
         <div class="panel-body">
             <?php echo $form->render(); ?>
         </div>
+    </div>
+    <div class = "center-block">
+        <?php echo (microtime(true) - $start);?>
     </div>
 </div>
 <script src="/js/bootstrap.min.js"></script>
